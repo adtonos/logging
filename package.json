@@ -1,0 +1,49 @@
+{
+  "name": "@adtonos/logging",
+  "version": "1.0.0",
+  "description": "Logger",
+  "license": "MIT",
+  "homepage": "https://github.com/adtonos/logging#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adtonos/logging.git"
+  },
+  "source": "src/index.ts",
+  "main": "dist/logging.js",
+  "module": "dist/logging.mjs",
+  "types": "dist/logging.d.ts",
+  "scripts": {
+    "test": "mocha --require ts-node/register tests/*.ts",
+    "karma": "karma start --single-run",
+    "lint": "eslint src/*",
+    "format": "prettier src/*.ts tests --write"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/logging.js",
+      "import": "./dist/logging.mjs"
+    }
+  },
+  "devDependencies": {
+    "karma": "6.3.4",
+    "karma-chrome-launcher": "3.1.0",
+    "karma-firefox-launcher": "2.1.1",
+    "karma-mocha": "2.0.1",
+    "karma-qunit": "4.1.2",
+    "karma-typescript": "5.5.1",
+    "qunit": "2.16.0",
+    "ts-node": "10.0.0",
+    "tslint": "6.0.0",
+    "typescript": "4.3.4"
+  },
+  "files": [
+    "dist/*.*",
+    "README.md"
+  ],
+  "dependencies": {
+    "@types/chai": "4.2.19",
+    "@types/mocha": "8.2.2",
+    "chai": "4.3.4",
+    "mocha": "9.0.1"
+  }
+}
