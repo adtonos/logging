@@ -7,8 +7,8 @@ export interface IRecord {
   readonly msg?: string;
   readonly exception?: any;
   readonly timestamp: number;
-  readonly created: string;
-  readonly createdDate: Date;
+  readonly created: Date;
+  readonly extra?: any;
 }
 
 export interface IFilter {
@@ -38,13 +38,13 @@ export interface ILogger {
   removeHandler(handler: IHandler): ILogger;
   hasHandlers(): boolean;
   getHandlers(): IHandler[];
-  fatal(msg: string, exception?: any): void;
-  critical(msg: string, exception?: any): void;
-  error(msg: string, exception?: any): void;
-  warn(msg: string, exception?: any): void;
-  warning(msg: string, exception?: any): void;
-  info(msg: string): void;
-  debug(msg: string): void;
-  exception(exception: any): void;
-  log(level: number, msg: string, exception?: any): void;
+  fatal(msg: string, exception?: any, extra?: any): void;
+  critical(msg: string, exception?: any, extra?: any): void;
+  error(msg: string, exception?: any, extra?: any): void;
+  warn(msg: string, exception?: any, extra?: any): void;
+  warning(msg: string, exception?: any, extra?: any): void;
+  info(msg: string, exception?: any, extra?: any): void;
+  debug(msg: string, exception?: any, extra?: any): void;
+  exception(exception: any, extra?: any): void;
+  log(level: number, msg: string, exception?: any, extra?: any): void;
 }

@@ -1,7 +1,7 @@
 import { LEVEL_NAMES, LEVELS } from './consts';
 import { Filterer } from './filter';
 import { IHandler, ILogger, IRecord, LevelType } from './interfaces';
-import { checkLevel, formatDate } from './utils';
+import { checkLevel, isError } from './utils';
 
 export class Logger extends Filterer implements ILogger {
   public manager?: any;
@@ -50,51 +50,56 @@ export class Logger extends Filterer implements ILogger {
     return Array.from(this._handlers);
   }
 
-  public fatal(msg: string, exception?: any) {
-    this.log(LEVELS.FATAL, msg, exception);
+  public fatal(msg: string, exception?: any, extra?: any) {
+    this.log(LEVELS.FATAL, msg, exception, extra);
   }
 
-  public critical(msg: string, exception?: any) {
-    this.log(LEVELS.CRITICAL, msg, exception);
+  public critical(msg: string, exception?: any, extra?: any) {
+    this.log(LEVELS.CRITICAL, msg, exception, extra);
   }
 
-  public error(msg: string, exception?: any) {
-    this.log(LEVELS.ERROR, msg, exception);
+  public error(msg: string, exception?: any, extra?: any) {
+    this.log(LEVELS.ERROR, msg, exception, extra);
   }
 
-  public warn(msg: string, exception?: any) {
-    this.log(LEVELS.WARN, msg, exception);
+  public warn(msg: string, exception?: any, extra?: any) {
+    this.log(LEVELS.WARN, msg, exception, extra);
   }
 
-  public warning(msg: string, exception?: any) {
-    this.log(LEVELS.WARN, msg, exception);
+  public warning(msg: string, exception?: any, extra?: any) {
+    this.log(LEVELS.WARN, msg, exception, extra);
   }
 
-  public info(msg: string) {
-    this.log(LEVELS.INFO, msg);
+  public info(msg: string, exception?: any, extra?: any) {
+    this.log(LEVELS.INFO, msg, exception, extra);
   }
 
-  public debug(msg: string) {
-    this.log(LEVELS.DEBUG, msg);
+  public debug(msg: string, exception?: any, extra?: any) {
+    this.log(LEVELS.DEBUG, msg, exception, extra);
   }
 
-  public exception(exception: any) {
-    this.log(LEVELS.ERROR, exception.message, exception);
+  public exception(exception: any, extra?: any) {
+    this.log(LEVELS.ERROR, exception.message, exception, extra);
   }
 
-  public log(level: number, msg: string, exception?: any) {
+  public log(level: number, msg: string, exception?: any, extra?: any) {
+    if (exception && !isError(exception)) {
+      extra = exception;
+      exception = null;
+    }
+
     level = checkLevel(level);
     if (this._isEnabledFor(level)) {
       const now = new Date();
       this.handle({
-        created: formatDate(now),
-        createdDate: now,
+        created: now,
         timestamp: Math.floor(now.getTime() / 1000),
         name: this.name,
         level,
         levelName: LEVEL_NAMES[level] as string,
         msg,
         exception,
+        extra,
       });
     }
   }

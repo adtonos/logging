@@ -7,8 +7,7 @@ describe('@adtonos/logging :: Filters', () => {
     return {
       name,
       timestamp: 1234,
-      created: '2021-05-11T21:29:18.195Z',
-      createdDate: new Date(),
+      created: new Date(),
       level: 1,
     };
   }
