@@ -16,7 +16,9 @@
     "test": "mocha --require ts-node/register tests/*.ts",
     "karma": "karma start --single-run",
     "lint": "eslint src/*",
-    "format": "prettier src/*.ts tests --write"
+    "format": "prettier src/*.ts tests --write",
+    "prepare": "npm run build",
+    "build": "tsc"
   },
   "exports": {
     ".": {
