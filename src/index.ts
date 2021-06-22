@@ -9,5 +9,5 @@ export { BaseHandler, ConsoleHandler } from './handlers';
 const manager = new Manager();
 
 export function getLogger(name?: string): ILogger {
-    return manager.getLogger(name);
+  return manager.getLogger(name);
 }
