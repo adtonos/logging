@@ -5,9 +5,10 @@ export { Filter, Filterer } from './filter';
 export { SimpleFormater } from './formaters';
 export { Logger } from './logger';
 export { BaseHandler, ConsoleHandler } from './handlers';
+export { default as stringify } from './stringify';
 
 const manager = new Manager();
 
 export function getLogger(name?: string): ILogger {
-    return manager.getLogger(name);
+  return manager.getLogger(name);
 }

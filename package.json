@@ -9,19 +9,21 @@
     "url": "git+https://github.com/adtonos/logging.git"
   },
   "source": "src/index.ts",
-  "main": "dist/logging.js",
-  "module": "dist/logging.mjs",
-  "types": "dist/logging.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha --require ts-node/register tests/*.ts",
     "karma": "karma start --single-run",
     "lint": "eslint src/*",
-    "format": "prettier src/*.ts tests --write"
+    "format": "prettier src/*.ts tests --write",
+    "prepare": "npm run build",
+    "build": "tsc"
   },
   "exports": {
     ".": {
-      "require": "./dist/logging.js",
-      "import": "./dist/logging.mjs"
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
     }
   },
   "devDependencies": {
@@ -31,6 +33,7 @@
     "karma-mocha": "2.0.1",
     "karma-qunit": "4.1.2",
     "karma-typescript": "5.5.1",
+    "prettier": "^2.3.1",
     "qunit": "2.16.0",
     "ts-node": "10.0.0",
     "tslint": "6.0.0",
