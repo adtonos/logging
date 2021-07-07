@@ -39,7 +39,7 @@ export class SimpleFormater implements IFormater {
     return [
       date.getUTCFullYear(),
       '-',
-      pad10(date.getUTCMonth()),
+      pad10(date.getUTCMonth() + 1),
       '-',
       pad10(date.getUTCDate()),
       'T',
