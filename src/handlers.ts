@@ -41,9 +41,5 @@ export abstract class BaseHandler extends Filterer implements IHandler {
 export class ConsoleHandler extends BaseHandler {
   public emit(record: IRecord): void {
     console.log(this.formater.format(record));
-    if (record.exception) {
-      /* tslint:disable-next-line */
-      console.error(record.exception);
-    }
   }
 }
