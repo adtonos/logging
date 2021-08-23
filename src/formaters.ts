@@ -56,17 +56,19 @@ export class SimpleFormater implements IFormater {
 
   formatException(einfo: any): string {
     let result = ` Error: ${einfo.message || ''}`;
+    let ignoreStack = false;
 
     if (einfo.config && einfo.config.url) {
-      result += `\nurl: ${einfo.config.url}`;
+      result += ` url: ${einfo.config.url}`;
+      ignoreStack = true;
     }
     if (einfo.code) {
-      result += `\ncode: ${einfo.code}`;
+      result += ` code: ${einfo.code}`;
     }
     if (einfo.response && einfo.response.status && einfo.response.statusText) {
       result += `\nstatus: ${einfo.response.status} (${einfo.response.statusText})`;
     }
-    if (einfo.stack) {
+    if (einfo.stack && !ignoreStack) {
       result += `\nstack: ${einfo.stack}`;
     }
     if (result.indexOf('\n') >= 0) {
