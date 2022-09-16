@@ -11,6 +11,23 @@ npm install @adtonos/logging
 ```
 
 ### Using
+
+#### Basic usage
+```js
+import { getDefaultLogger } from '@adtonos/logging';
+const logger = getDefaultLogger();
+
+logger.fatal('...');
+logger.error('...');
+logger.warn('...');
+logger.info('...');
+logger.debug('...');
+logger.exception(e);
+
+```
+
+#### Advanced usage
+
 ```js
 import { getLogger, ConsoleHandler } from '@adtonos/logging';
 
@@ -20,14 +37,6 @@ logger.setLevel('DEBUG');
 const consoleHandler = new ConsoleHandler();
 consoleHandler.setFormater(new SimpleFormater('{name} {levelName} {msg}'));
 logger.addHandler(consoleHandler);
-
-
-logger.fatal('...');
-logger.error('...');
-logger.warn('...');
-logger.info('...');
-logger.debug('...');
-logger.exception(e);
 
 // create app child logger
 const dbLogger = getLogger('app.db');
