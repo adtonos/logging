@@ -1,5 +1,7 @@
 import { Manager } from './manager';
 import { ILogger } from './interfaces';
+import { SimpleFormater } from './formaters';
+import { ConsoleHandler } from './handlers';
 export * from './interfaces';
 export { Filter, Filterer } from './filter';
 export { SimpleFormater } from './formaters';
@@ -11,4 +13,20 @@ const manager = new Manager();
 
 export function getLogger(name?: string): ILogger {
   return manager.getLogger(name);
+}
+
+let defaultLogger: ILogger;
+
+export function getDefaultLogger(): ILogger {
+  if (!defaultLogger) {
+    const TARGET = process.env.NODE_ENV || 'devel';
+    const LOG_LEVEL = process.env.LOGLEVEL || (TARGET === 'production' ? 'INFO' : 'DEBUG');
+    defaultLogger = getLogger(process.env.APP_NAME || '');
+    const formatter = new SimpleFormater('{created} - {levelName}: {msg}{exception}{extra}');
+    const consoleHandler = new ConsoleHandler();
+    consoleHandler.setFormater(formatter);
+    consoleHandler.setLevel(LOG_LEVEL);
+    defaultLogger.addHandler(consoleHandler);
+  }
+  return defaultLogger;
 }

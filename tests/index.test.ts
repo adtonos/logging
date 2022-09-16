@@ -2,7 +2,7 @@ import { assert } from 'chai';
 
 import { LEVELS } from '../src/consts';
 import { Manager } from '../src/manager';
-import { Logger, BaseHandler } from '../src/index';
+import { Logger, BaseHandler, getDefaultLogger } from '../src/index';
 
 class TestHandler extends BaseHandler {
   private _body: Array<any>;
@@ -228,5 +228,13 @@ describe('@adtonos/logging :: Handler', () => {
     _dummy(logger);
 
     assert.equal('i,w1,w2,e,c,f', handler.result());
+  });
+});
+
+describe('@adtonos/logging :: getDefaultLogger()', () => {
+  it('should return the same logger every time', () => {
+    const logger1 = getDefaultLogger();
+    const logger2 = getDefaultLogger();
+    assert.strictEqual(logger1, logger2);
   });
 });
