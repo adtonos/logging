@@ -43,3 +43,34 @@ export class ConsoleHandler extends BaseHandler {
     console.log(this.formater.format(record));
   }
 }
+
+export class CountRepeatsConsoleHandler extends BaseHandler {
+  private prefixLen: number;
+  private lastLogLine: string = '';
+  private repeatsCount: number = 0;
+
+  constructor(level: LevelType = LEVELS.NOTSET, prefixLen: number = 0) {
+    super(level);
+    this.prefixLen = prefixLen;
+  }
+
+  protected rawEmit(text: string) {
+    console.log(text);
+  }
+
+  public emit(record: IRecord): void {
+    const fullLogLine = this.formater.format(record);
+    const logLine = fullLogLine.slice(this.prefixLen);
+
+    if (logLine === this.lastLogLine) {
+      this.repeatsCount += 1;
+      return;
+    }
+    if (this.repeatsCount > 0) {
+      this.rawEmit(`The last line was repeated ${this.repeatsCount} more times.`)
+      this.repeatsCount = 0;
+    }
+    this.lastLogLine = logLine;
+    this.rawEmit(fullLogLine);
+  }
+}
